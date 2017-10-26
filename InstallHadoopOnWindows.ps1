@@ -44,4 +44,4 @@ cp "$REPO_DIR\winutils\$HADOOP\*" "$INSTALL_DIR\$HADOOP\bin"
 cp "$REPO_DIR\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
 
 # Format namenode
-"$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
+& "$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
