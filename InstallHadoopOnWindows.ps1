@@ -38,7 +38,7 @@ $javaHome = Split-Path -Parent $(Get-Command java).Source
 $javaShort = $fso.GetFolder($javaHome).ShortPath
 
 $envFile = "$INSTALL_DIR\$HADOOP\etc\hadoop\hadoop-env.cmd"
-(Get-Content $envFile).replace("%JAVA_HOME%", $javaShort) | Set-Content "$envFile.tmp"
+(Get-Content $envFile).replace("%JAVA_HOME%", $javaShort) | Set-Content "$envFile"
 
 # Copy winutils over from git repo
 $repoDir = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
