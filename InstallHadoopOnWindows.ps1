@@ -43,5 +43,9 @@ cp "$REPO_DIR\winutils\$HADOOP\*" "$INSTALL_DIR\$HADOOP\bin"
 # Copy Hadoop config files for pseudo-distributed mode
 cp "$REPO_DIR\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
 
+# Create hadoop data folders
+mkdir "C:\opt\hadoop\dfs\name"
+mkdir "C:\opt\hadoop\dfs\data"
+
 # Format namenode
 & "$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
