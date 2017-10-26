@@ -30,7 +30,7 @@ rm "$HADOOP.tar"
 # Set JAVA_HOME in Hadoop's hadoop-env.cmd file. Use the "ShortPath" equivalent,
 # because any spaces/quotes in the path causes problems.
 $fso = New-Object -com Scripting.FileSystemObject
-$javaHome = Split-Path -Parent (Get-Command java).Source
+$javaHome = Split-Path -Parent $(Get-Command java).Source
 $javaShort = $fso.GetFolder($javaHome).ShortPath
 
 $envFile = "$INSTALL_DIR\$HADOOP\etc\hadoop\hadoop-env.cmd"
@@ -46,8 +46,8 @@ cp "$repoDir\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
 # Create hadoop data folders
 $nameDir = "C:\opt\hadoop\dfs\name"
 $dataDir = "C:\opt\hadoop\dfs\data"
-if (-Not Test-Path $nameDir) mkdir $nameDir
-if (-Not Test-Path $dataDir) mkdir $dataDir
+if (-Not $(Test-Path $nameDir)) mkdir $nameDir
+if (-Not $(Test-Path $dataDir)) mkdir $dataDir
 
 # Format namenode
 & "$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
