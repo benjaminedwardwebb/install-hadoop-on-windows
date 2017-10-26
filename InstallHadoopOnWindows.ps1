@@ -1,10 +1,9 @@
-#Requires -RunAsAdministrator
 <# 
 	.SYNOPSIS
 	This script installs Hadoop and sets it up for Windows.
 #>
 # Static vars, like where to install Hadoop & version number.
-$INSTALL_DIR = $HOME
+$INSTALL_DIR = "$HOME"
 $VERSION = "2.8.1"
 $HADOOP = "hadoop-$VERSION"
 $MIRROR = "http://apache.mirrors.hoobly.com/hadoop/common/$HADOOP/$HADOOP.tar.gz"
@@ -20,10 +19,13 @@ Invoke-WebRequest -Uri $MIRROR -OutFile "$INSTALL_DIR\$HADOOP.tar.gz"
 #Invoke-WebRequest -Uri $SIGURL
 
 # Uncompress files (must be admin for this step; must have 7-zip)
-7z x "$HADOOP.tar.gz"
-7z x "$HADOOP.tar"
-rm "$HADOOP.tar.gz"
-rm "$HADOOP.tar"
+$codeBlock = {
+	7z x "$HADOOP.tar.gz"
+	7z x "$HADOOP.tar"
+	rm "$HADOOP.tar.gz"
+	rm "$HADOOP.tar"
+}
+Start-Process -FilePath powershell.exe -ArgumentList $codeBlock -verb RunAs -WorkingDirectory "$INSTALL_DIR"
 
 # Set HADOOP_HOME for your user
 [Environment]::SetEnvironmentVariable("HADOOP_HOME", "$INSTALL_DIR\$HADOOP", "User")
