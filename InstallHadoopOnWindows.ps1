@@ -46,8 +46,8 @@ cp "$repoDir\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
 # Create hadoop data folders
 $nameDir = "C:\opt\hadoop\dfs\name"
 $dataDir = "C:\opt\hadoop\dfs\data"
-if (-Not $(Test-Path $nameDir)) mkdir $nameDir
-if (-Not $(Test-Path $dataDir)) mkdir $dataDir
+if (-Not $(Test-Path $nameDir)) { mkdir $nameDir }
+if (-Not $(Test-Path $dataDir)) { mkdir $dataDir }
 
 # Format namenode
 & "$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
