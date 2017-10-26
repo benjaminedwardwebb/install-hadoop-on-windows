@@ -31,7 +31,7 @@ rm "$HADOOP.tar"
 # because any spaces/quotes in the path causes problems.
 $fso = New-Object -com Scripting.FileSystemObject
 $javaHome = Split-Path -Parent (Get-Command java).Source
-$javaShort = $fso.GetFolder($javaPath).ShortPath
+$javaShort = $fso.GetFolder($javaHome).ShortPath
 
 $envFile = "$INSTALL_DIR\$HADOOP\etc\hadoop\hadoop-env.cmd"
 (Get-Content $envFile).replace("%JAVA_HOME%", $javaShort) | Set-Content "$envFile.tmp"
