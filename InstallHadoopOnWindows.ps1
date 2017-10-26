@@ -1,5 +1,9 @@
-<# This script installs Hadoop and sets it up for Windows #>
-# Where to install Hadoop, version, filename.
+#Requires -RunAsAdministrator
+<# 
+	.SYNOPSIS
+	This script installs Hadoop and sets it up for Windows.
+#>
+# Static vars, like where to install Hadoop & version number.
 $INSTALL_DIR = $HOME
 $VERSION = "2.8.1"
 $HADOOP = "hadoop-$VERSION"
