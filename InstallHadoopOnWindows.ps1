@@ -37,15 +37,17 @@ $envFile = "$INSTALL_DIR\$HADOOP\etc\hadoop\hadoop-env.cmd"
 (Get-Content $envFile).replace("%JAVA_HOME%", $javaShort) | Set-Content "$envFile.tmp"
 
 # Copy winutils over from git repo
-$REPO_DIR = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
-cp "$REPO_DIR\winutils\$HADOOP\*" "$INSTALL_DIR\$HADOOP\bin"
+$repoDir = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
+cp "$repoDir\winutils\$HADOOP\*" "$INSTALL_DIR\$HADOOP\bin"
 
 # Copy Hadoop config files for pseudo-distributed mode
-cp "$REPO_DIR\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
+cp "$repoDir\config\*" "$INSTALL_DIR\$HADOOP\etc\hadoop"
 
 # Create hadoop data folders
-mkdir "C:\opt\hadoop\dfs\name"
-mkdir "C:\opt\hadoop\dfs\data"
+$nameDir = "C:\opt\hadoop\dfs\name"
+$dataDir = "C:\opt\hadoop\dfs\data"
+if (-Not Test-Path $nameDir) mkdir $nameDir
+if (-Not Test-Path $dataDir) mkdir $dataDir
 
 # Format namenode
 & "$INSTALL_DIR\$HADOOP\bin\hadoop" namenode -format
