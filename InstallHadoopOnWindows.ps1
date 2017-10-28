@@ -38,22 +38,19 @@ $process.WaitForExit()
 # C:\Program Files\Java for jdk/jre folders of version 6, 7, 
 # or 8.
 $javaHome = ""
-$javas = 
+
+$javas = @(
 	$env:JAVA_HOME, 
-	Split-Path -Parent $(Get-Command java).Source,
-	
-if (Test-Path "$java1\bin\java.exe") {
-	$javaHome = $java1
-} elseif (Test-Path "$java2\bin\java.exe") {
-	$javaHome = $java2
-} else {
-	$jres = Get-ChildItem "C:\Program Files\Java"
-	for ($i = 0; $i -lt $jres.Length; $i++) {
-		$java3 = $jres[$i].FullName
-		if ($(Test-Path "$java3\bin\java.exe") -and $($java3 -match "6|7|8")) {
-			$javaHome = $java3
-			break;
-		}
+	$(Split-Path -Parent $(Get-Command java).Source)
+)
+$jres = $(gci "C:\Program Files\Java").FullName -match "6|7|8"
+$javas = $javas + $jres
+
+for ($i = 0; $i -lt $javas.Length; $i++) {
+	$java = $javas[$i]
+	if (Test-Path "$java\bin\java.exe") {
+		$javaHome = $java
+		break;
 	}
 }
 
